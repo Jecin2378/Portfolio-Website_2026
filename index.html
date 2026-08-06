@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jecin - AI Infrastructure Engineer & Forex Enthusiast Portfolio">
+  <title>Jecin | AI Infrastructure Engineer</title>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- External Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Background Video (place the MP4 file in project root as background.mp4) -->
+  <video id="background-video" autoplay muted loop playsinline preload="auto">
+    <source src="background.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Background Particle Effects Canvas -->
+  <canvas id="particle-canvas"></canvas>
+  <div class="ambient-glow"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
+
+  <!-- Header Navigation -->
+  <header id="header">
+    <div class="container">
+      <nav>
+        <a href="#hero" class="logo">Jecin<span>.wise</span></a>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#focus">Focus</a></li>
+          <li><a href="#timeline">Journey</a></li>
+          <li><a href="#github">GitHub</a></li>
+          <li><a href="#linkedin">LinkedIn</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <h1>Jecin Wise</h1>
+          <div class="hero-subtitle">AI Infrastructure Engineer • Forex Enthusiast</div>
+          <div class="typing-container">
+            <span id="typing-text"></span><span class="typing-cursor"></span>
+          </div>
+          <p class="hero-description">
+            Building intelligent infrastructure, scalable software, and digital businesses powered by AI.
+          </p>
+          <div class="hero-btns">
+            <a href="#contact" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Get In Touch</a>
+            <a href="https://github.com/Jecin2378/" target="_blank" rel="noopener noreferrer"
+              class="btn btn-secondary"><i class="fab fa-github"></i> GitHub</a>
+          </div>
+        </div>
+        <div class="hero-image-wrapper">
+          <div class="profile-frame glass">
+            <img src="Profile.png" alt="Jecin Professional Portrait">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Me Section -->
+  <section id="about" class="reveal">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-content glass">
+        <p class="about-text">
+          I am a Computer Science student specializing in Artificial Intelligence and Machine Learning who is passionate
+          about building businesses using technology and solving real-world problems through scalable systems,
+          automation, and modern software engineering.
+        </p>
+        <div class="passions-grid">
+          <div class="passion-tag"><i class="fas fa-brain"></i> Artificial Intelligence</div>
+          <div class="passion-tag"><i class="fas fa-cloud"></i> Cloud Computing</div>
+          <div class="passion-tag"><i class="fas fa-server"></i> Infrastructure Engineering</div>
+          <div class="passion-tag"><i class="fab fa-linux"></i> Linux</div>
+          <div class="passion-tag"><i class="fas fa-cogs"></i> DevOps</div>
+          <div class="passion-tag"><i class="fas fa-robot"></i> Automation</div>
+          <div class="passion-tag"><i class="fas fa-code"></i> Full Stack Development</div>
+          <div class="passion-tag"><i class="fas fa-network-wired"></i> Networking</div>
+
+          <div class="passion-tag"><i class="fas fa-chart-line"></i> Building Businesses Using Tech</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Current Focus Section -->
+  <section id="focus" class="reveal">
+    <div class="container">
+      <h2 class="section-title">Current Focus</h2>
+      <button class="focus-toggle-btn" id="focusToggle">
+        <span><i class="fas fa-layer-group"></i> Click Here to Know More</span>
+        <i class="fas fa-chevron-down" id="toggleIcon"></i>
+      </button>
+      <div class="focus-content" id="focusContent">
+        <div class="skills-grid">
+          <div class="skill-card glass"><i class="fas fa-robot"></i> AI Agent Stack</div>
+          <div class="skill-card glass"><i class="fas fa-cogs"></i> AI Automation</div>
+          <div class="skill-card glass"><i class="fas fa-microchip"></i> AI Infrastructure</div>
+          <div class="skill-card glass"><i class="fas fa-cloud"></i> Cloud Computing</div>
+          <div class="skill-card glass"><i class="fab fa-docker"></i> Docker</div>
+          <div class="skill-card glass"><i class="fab fa-linux"></i> Linux Administration</div>
+          <div class="skill-card glass"><i class="fas fa-network-wired"></i> Networking</div>
+          <div class="skill-card glass"><i class="fab fa-git-alt"></i> Git & GitHub</div>
+          <div class="skill-card glass"><i class="fas fa-sync-alt"></i> CI/CD</div>
+          <div class="skill-card glass"><i class="fas fa-cubes"></i> Kubernetes</div>
+          <div class="skill-card glass"><i class="fab fa-python"></i> Python Automation</div>
+          <div class="skill-card glass"><i class="fas fa-brain"></i> Large Language Models</div>
+          <div class="skill-card glass"><i class="fab fa-aws"></i> AWS</div>
+          <div class="skill-card glass"><i class="fas fa-sitemap"></i> System Design</div>
+          <div class="skill-card glass"><i class="fas fa-database"></i> Backend Development</div>
+          <div class="skill-card glass"><i class="fab fa-microsoft"></i> Microsoft Azure</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline / Journey Section -->
+  <section id="timeline" class="reveal">
+    <div class="container">
+      <h2 class="section-title">Growth Journey</h2>
+      <div class="timeline">
+        <div class="timeline-item left">
+          <div class="timeline-card glass">
+            <h3>Started learning programming</h3>
+            <p>Began my computer science journey mastering foundational logic, algorithms, and core concepts.</p>
+          </div>
+        </div>
+        <div class="timeline-item right">
+          <div class="timeline-card glass">
+            <h3>Built web applications</h3>
+            <p>Designed and developed scalable full-stack web platforms and interactive components.</p>
+          </div>
+        </div>
+        <div class="timeline-item left">
+          <div class="timeline-card glass">
+            <h3>Learned Git & GitHub</h3>
+            <p>Adopted robust version control, collaborative workflows, and open-source contribution practices.</p>
+          </div>
+        </div>
+        <div class="timeline-item right">
+          <div class="timeline-card glass">
+            <h3>Explored Artificial Intelligence</h3>
+            <p>Dived deep into ML algorithms, deep learning frameworks, and AI systems architecture.</p>
+          </div>
+        </div>
+        <div class="timeline-item left">
+          <div class="timeline-card glass">
+            <h3>Learning Cloud Computing</h3>
+            <p>Architecting cloud environments on AWS and understanding cloud infrastructure models.</p>
+          </div>
+        </div>
+        <div class="timeline-item right">
+          <div class="timeline-card glass">
+            <h3>Learning DevOps</h3>
+            <p>Automating deployment pipelines using Docker, CI/CD, and infrastructure management.</p>
+          </div>
+        </div>
+        <div class="timeline-item left">
+          <div class="timeline-card glass">
+            <h3>Building AI Infrastructure expertise</h3>
+            <p>Focusing on high-performance computing, distributed workloads, and scalable AI hosting.</p>
+          </div>
+        </div>
+        <div class="timeline-item right">
+          <div class="timeline-card glass">
+            <h3>Preparing for professional opportunities</h3>
+            <p>Applying scalable engineering solutions and preparing for enterprise-level technology leadership.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GitHub Showcase Section -->
+  <section id="github" class="reveal">
+    <div class="container">
+      <h2 class="section-title">GitHub Showcase</h2>
+      <div class="github-grid">
+        <!-- Contribution Graph Card -->
+        <div class="github-card glass">
+          <h3><i class="fas fa-chart-bar"></i> Contribution Graph</h3>
+          <div id="github-contrib-container" class="contrib-container">
+            <a href="https://github.com/Jecin2378" target="_blank" rel="noopener noreferrer">
+              <img src="https://ghchart.rshah.org/00f0ff/Jecin2378" alt="Jecin2378's GitHub Contributions"
+                class="contrib-chart-img"
+                onerror="this.style.display='none'; document.getElementById('contrib-fallback').style.display='flex';" />
+            </a>
+            <div id="contrib-fallback" class="stat-placeholder" style="display: none;">
+              <i class="fab fa-github fa-2x"></i>
+              <span>GitHub Contribution Activity</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- GitHub Statistics Card -->
+        <div class="github-card glass">
+          <h3><i class="fas fa-code-branch"></i> GitHub Statistics</h3>
+          <div id="github-stats-container" class="stats-indicators">
+            <div class="stat-indicator">
+              <span class="stat-value" id="stat-repos">13</span>
+              <span class="stat-label">Repositories</span>
+            </div>
+            <div class="stat-indicator">
+              <span class="stat-value" id="stat-followers">2</span>
+              <span class="stat-label">Followers</span>
+            </div>
+            <div class="stat-indicator">
+              <span class="stat-value" id="stat-stars">0</span>
+              <span class="stat-label">Total Stars</span>
+            </div>
+            <div class="stat-indicator">
+              <span class="stat-value" id="stat-gists">0</span>
+              <span class="stat-label">Public Gists</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Most Used Languages Card -->
+        <div class="github-card glass">
+          <h3><i class="fas fa-pie-chart"></i> Most Used Languages</h3>
+          <div id="github-languages-container" class="languages-wrapper">
+            <div class="lang-bar" id="lang-bar">
+              <div class="lang-segment" style="width: 55%; background-color: #3178c6;" title="TypeScript: 55%"></div>
+              <div class="lang-segment" style="width: 25%; background-color: #f1e05a;" title="JavaScript: 25%"></div>
+              <div class="lang-segment" style="width: 15%; background-color: #da5b0b;" title="Jupyter Notebook: 15%">
+              </div>
+              <div class="lang-segment" style="width: 5%; background-color: #3572A5;" title="Python: 5%"></div>
+            </div>
+            <div class="lang-legend" id="lang-legend">
+              <div class="lang-legend-item">
+                <span class="lang-color" style="background-color: #3178c6;"></span>
+                <span class="lang-name">TypeScript</span>
+                <span class="lang-percent">55%</span>
+              </div>
+              <div class="lang-legend-item">
+                <span class="lang-color" style="background-color: #f1e05a;"></span>
+                <span class="lang-name">JavaScript</span>
+                <span class="lang-percent">25%</span>
+              </div>
+              <div class="lang-legend-item">
+                <span class="lang-color" style="background-color: #da5b0b;"></span>
+                <span class="lang-name">Jupyter Notebook</span>
+                <span class="lang-percent">15%</span>
+              </div>
+              <div class="lang-legend-item">
+                <span class="lang-color" style="background-color: #3572A5;"></span>
+                <span class="lang-name">Python</span>
+                <span class="lang-percent">5%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Repositories Card -->
+        <div class="github-card glass github-card-wide">
+          <h3><i class="fas fa-folder-open"></i> Featured Repositories</h3>
+          <div id="github-repos-container" class="repo-list">
+            <!-- Preloaded fallback top repositories -->
+            <a href="https://github.com/Jecin2378/logor-website1" target="_blank" rel="noopener noreferrer"
+              class="repo-item-link">
+              <div class="repo-item">
+                <div class="repo-header">
+                  <h4>logor-website1</h4>
+                  <span class="repo-lang"><span class="lang-color"
+                      style="background-color: #3178c6;"></span>TypeScript</span>
+                </div>
+                <p>Logor's official platform for helping businesses grow with AI, NFC technology, digital presence, and
+                  automation.</p>
+                <div class="repo-meta">
+                  <span><i class="far fa-star"></i> 0</span>
+                  <span><i class="fas fa-code-branch"></i> 0</span>
+                </div>
+              </div>
+            </a>
+            <a href="https://github.com/Jecin2378/EnglishOnly-Neural-voice-engine-lightweight-no-GPU-required."
+              target="_blank" rel="noopener noreferrer" class="repo-item-link">
+              <div class="repo-item">
+                <div class="repo-header">
+                  <h4>EnglishOnly-Neural-voice-engine...</h4>
+                  <span class="repo-lang"><span class="lang-color"
+                      style="background-color: #3178c6;"></span>TypeScript</span>
+                </div>
+                <p>A text to speech voice engine that works faster with reliable models. No GPU required.</p>
+                <div class="repo-meta">
+                  <span><i class="far fa-star"></i> 0</span>
+                  <span><i class="fas fa-code-branch"></i> 0</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LinkedIn Showcase Section -->
+  <section id="linkedin" class="reveal">
+    <div class="container">
+      <h2 class="section-title">LinkedIn Showcase</h2>
+      <div class="github-grid">
+        <!-- Profile Card -->
+        <div class="github-card glass">
+          <h3><i class="fab fa-linkedin"></i> Profile Snapshot</h3>
+          <div class="linkedin-profile-box">
+            <div class="linkedin-avatar">
+              <img src="Profile.png" alt="Jecin Wise"
+                onerror="this.src='https://via.placeholder.com/120/0d1628/00f0ff?text=J'">
+            </div>
+            <h4>Jecin Wise</h4>
+            <p class="linkedin-role">AI Infrastructure Engineer • Forex Enthusiast</p>
+            <a href="https://www.linkedin.com/in/jecin-wise-a61a8a230/" target="_blank" rel="noopener noreferrer"
+              class="btn btn-primary linkedin-btn">
+              <i class="fab fa-linkedin"></i> Connect
+            </a>
+          </div>
+        </div>
+
+        <!-- Statistics Card -->
+        <div class="github-card glass">
+          <h3><i class="fas fa-chart-line"></i> LinkedIn Statistics</h3>
+          <div class="stats-indicators">
+            <div class="stat-indicator">
+              <span class="stat-value">500+</span>
+              <span class="stat-label">Connections</span>
+            </div>
+            <div class="stat-indicator">
+              <span class="stat-value">300+</span>
+              <span class="stat-label">Followers</span>
+            </div>
+            <div class="stat-indicator">
+              <span class="stat-value">10+</span>
+              <span class="stat-label">Endorsements</span>
+            </div>
+            <div class="stat-indicator">
+              <span class="stat-value">25+</span>
+              <span class="stat-label">Certifications</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Experience -->
+        <div class="github-card glass github-card">
+          <h3><i class="fas fa-briefcase"></i> Featured Experience & Education</h3>
+          <div class="exp-list">
+            <div class="exp-card">
+              <div class="exp-icon"><i class="fas fa-university"></i></div>
+              <div class="exp-content">
+                <h4>Computer Science Student</h4>
+                <p class="exp-subtitle">Specializing in AI Infrastructure</p>
+                <p class="exp-desc">Currently pursuing my degree with a strong focus on AI systems, scalable
+                  infrastructure, and modern software engineering practices.</p>
+              </div>
+            </div>
+            <div class="exp-card">
+              <div class="exp-icon"><i class="fas fa-laptop-code"></i></div>
+              <div class="exp-content">
+                <h4>AI Infrastructure Engineering Aspirant</h4>
+                <p class="exp-subtitle">Building Projects</p>
+                <p class="exp-desc">Developing scalable platforms, automating workflows, and leveraging cloud computing
+                  to solve real-world problems.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="reveal">
+    <div class="container">
+      <h2 class="section-title">Connect With Me</h2>
+      <div class="contact-grid">
+        <a href="mailto:jecincode@gmail.com" class="contact-card glass">
+          <i class="fas fa-envelope"></i>
+          <h4>Email</h4>
+          <p>jecincode@gmail.com</p>
+        </a>
+        <a href="https://github.com/Jecin2378/" target="_blank" rel="noopener noreferrer" class="contact-card glass">
+          <i class="fab fa-github"></i>
+          <h4>GitHub</h4>
+          <p>github.com/Jecin2378</p>
+        </a>
+        <a href="https://www.linkedin.com/in/jecin-wise-a61a8a230/" target="_blank" rel="noopener noreferrer"
+          class="contact-card glass">
+          <i class="fab fa-linkedin"></i>
+          <h4>LinkedIn</h4>
+          <p>jecin-wise</p>
+        </a>
+        <a href="https://wa.me/+917305313682" target="_blank" rel="noopener noreferrer"
+          class="contact-card glass phone">
+          <i class="fas fa-phone"></i>
+          <h4>Phone</h4>
+          <p>+91 73053 13682</p>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>"Building the future with Artificial Intelligence, Cloud, and Infrastructure."</p>
+      <p class="copyright">&copy; 2026 Jecin. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" class="back-to-top glass" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- External JavaScript Files -->
+  <script src="js/main.js"></script>
+  <script src="js/particles.js"></script>
+</body>
+
+</html>
