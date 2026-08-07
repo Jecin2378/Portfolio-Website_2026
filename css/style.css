@@ -1205,6 +1205,22 @@ footer .copyright {
 }
 
 @media (max-width: 768px) {
+  #background-video {
+    display: none !important;
+  }
+
+  .ambient-glow {
+    width: 250px;
+    height: 250px;
+    filter: blur(40px);
+    animation-duration: 20s;
+  }
+
+  .glass {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
   .mobile-toggle {
     display: block;
   }
@@ -1216,14 +1232,14 @@ footer .copyright {
     width: 260px;
     height: calc(100vh - 70px);
     background: var(--header-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-left: 1px solid var(--border-color);
     flex-direction: column;
     padding: 2.5rem 2rem;
     gap: 1.8rem;
     transition: right 0.4s ease;
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.6);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.4);
   }
 
   .nav-links.active {

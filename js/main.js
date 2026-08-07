@@ -98,6 +98,8 @@ function initScrollAnimations() {
   const navLinks = document.querySelectorAll(".nav-links a");
   const sections = document.querySelectorAll("section[id]");
 
+  let isTicking = false;
+
   function handleScroll() {
     const scrollY = window.scrollY;
 
@@ -112,7 +114,7 @@ function initScrollAnimations() {
     const windowHeight = window.innerHeight;
     reveals.forEach(reveal => {
       const revealTop = reveal.getBoundingClientRect().top;
-      if (revealTop < windowHeight - 80) {
+      if (revealTop < windowHeight - 60) {
         reveal.classList.add("active");
       }
     });
@@ -120,7 +122,7 @@ function initScrollAnimations() {
     // ScrollSpy active link highlighting
     let currentSection = "";
     sections.forEach(section => {
-      const sectionTop = section.offsetTop - 120;
+      const sectionTop = section.offsetTop - 140;
       const sectionHeight = section.offsetHeight;
       if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
         currentSection = section.getAttribute("id");
@@ -135,7 +137,17 @@ function initScrollAnimations() {
     });
   }
 
-  window.addEventListener("scroll", handleScroll);
+  function onScroll() {
+    if (!isTicking) {
+      window.requestAnimationFrame(() => {
+        handleScroll();
+        isTicking = false;
+      });
+      isTicking = true;
+    }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
   handleScroll(); // Trigger initial check
 }
 
@@ -427,7 +439,7 @@ function initGitHubShowcase() {
   }
 }
 
-/* Interactive Neural Constellation Particle Canvas */
+/* Mobile-Optimized Interactive Neural Constellation Particle Canvas */
 function initParticleCanvas() {
   const canvas = document.getElementById("particle-canvas");
   if (!canvas) return;
@@ -435,40 +447,45 @@ function initParticleCanvas() {
 
   let width = (canvas.width = window.innerWidth);
   let height = (canvas.height = window.innerHeight);
+  let isMobile = width < 768;
 
   const particles = [];
-  const particleCount = Math.min(Math.floor(width / 22), 65);
-  let mouse = { x: null, y: null, radius: 140 };
+  // Max 18 particles on mobile for 60fps performance, max 50 on desktop
+  const particleCount = isMobile ? 18 : Math.min(Math.floor(width / 26), 50);
+  let mouse = { x: null, y: null, radius: isMobile ? 0 : 130 };
 
   window.addEventListener("resize", () => {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
-  });
+    isMobile = width < 768;
+  }, { passive: true });
 
-  window.addEventListener("mousemove", (e) => {
-    mouse.x = e.x;
-    mouse.y = e.y;
-  });
+  if (!isMobile) {
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.x;
+      mouse.y = e.y;
+    }, { passive: true });
 
-  window.addEventListener("mouseleave", () => {
-    mouse.x = null;
-    mouse.y = null;
-  });
+    window.addEventListener("mouseleave", () => {
+      mouse.x = null;
+      mouse.y = null;
+    }, { passive: true });
+  }
 
   class Particle {
     constructor() {
       this.x = Math.random() * width;
       this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * 0.8;
-      this.vy = (Math.random() - 0.5) * 0.8;
-      this.radius = Math.random() * 2 + 1;
+      this.vx = (Math.random() - 0.5) * (isMobile ? 0.4 : 0.7);
+      this.vy = (Math.random() - 0.5) * (isMobile ? 0.4 : 0.7);
+      this.radius = Math.random() * 1.8 + 1;
     }
 
     get color() {
       const isLight = document.documentElement.getAttribute("data-theme") === "light";
       return isLight
         ? (Math.random() > 0.4 ? "#0284c7" : "#7c3aed")
-        : (Math.random() > 0.4 ? "#00f5d4" : "#131114ff");
+        : (Math.random() > 0.4 ? "#00f5d4" : "#9d4edd");
     }
 
     update() {
@@ -478,15 +495,15 @@ function initParticleCanvas() {
       if (this.x < 0 || this.x > width) this.vx *= -1;
       if (this.y < 0 || this.y > height) this.vy *= -1;
 
-      // Mouse interaction
-      if (mouse.x != null && mouse.y != null) {
+      // Mouse interaction on desktop
+      if (!isMobile && mouse.x != null && mouse.y != null) {
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < mouse.radius) {
           const force = (mouse.radius - dist) / mouse.radius;
-          this.x -= (dx / dist) * force * 1.5;
-          this.y -= (dy / dist) * force * 1.5;
+          this.x -= (dx / dist) * force * 1.2;
+          this.y -= (dy / dist) * force * 1.2;
         }
       }
     }
@@ -496,10 +513,13 @@ function initParticleCanvas() {
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
       ctx.fillStyle = c;
-      ctx.shadowBlur = 6;
-      ctx.shadowColor = c;
+      // Disable shadowBlur on mobile for massive GPU performance gain
+      if (!isMobile) {
+        ctx.shadowBlur = 4;
+        ctx.shadowColor = c;
+      }
       ctx.fill();
-      ctx.shadowBlur = 0;
+      if (!isMobile) ctx.shadowBlur = 0;
     }
   }
 
@@ -507,11 +527,14 @@ function initParticleCanvas() {
     particles.push(new Particle());
   }
 
+  let animFrameId = null;
+  const maxLineDist = isMobile ? 85 : 110;
+
   function animate() {
     ctx.clearRect(0, 0, width, height);
 
     const isLight = document.documentElement.getAttribute("data-theme") === "light";
-    const lineAlphaBase = isLight ? 0.14 : 0.18;
+    const lineAlphaBase = isLight ? 0.12 : 0.16;
 
     for (let i = 0; i < particles.length; i++) {
       particles[i].update();
@@ -522,22 +545,31 @@ function initParticleCanvas() {
         const dy = particles[i].y - particles[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
-        if (dist < 120) {
+        if (dist < maxLineDist) {
           ctx.beginPath();
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
-          const alpha = lineAlphaBase * (1 - dist / 120);
+          const alpha = lineAlphaBase * (1 - dist / maxLineDist);
           ctx.strokeStyle = isLight
             ? `rgba(2, 132, 199, ${alpha})`
             : `rgba(0, 245, 212, ${alpha})`;
-          ctx.lineWidth = 0.8;
+          ctx.lineWidth = 0.7;
           ctx.stroke();
         }
       }
     }
 
-    requestAnimationFrame(animate);
+    animFrameId = requestAnimationFrame(animate);
   }
+
+  // Pause canvas when tab is hidden to save mobile battery and memory
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+    } else {
+      animate();
+    }
+  });
 
   animate();
 }
