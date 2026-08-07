@@ -11,6 +11,7 @@
   --bg-dark: #07131e;
   --bg-card: rgba(13, 27, 42, 0.68);
   --bg-card-hover: rgba(20, 40, 62, 0.85);
+  --bg-card-mobile: rgba(11, 23, 36, 0.95);
   --primary: #00f5d4;
   --secondary: #9d4edd;
   --accent: #ff70a6;
@@ -20,6 +21,7 @@
   --border-highlight: rgba(0, 245, 212, 0.45);
   --glow-color: rgba(0, 245, 212, 0.22);
   --header-bg: rgba(7, 19, 30, 0.85);
+  --header-bg-mobile: rgba(7, 19, 30, 0.97);
   --grid-line: rgba(0, 245, 212, 0.04);
   --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   --glow-1: rgba(0, 245, 212, 0.22);
@@ -34,6 +36,7 @@
   --bg-dark: #f8fafc;
   --bg-card: rgba(255, 255, 255, 0.88);
   --bg-card-hover: rgba(255, 255, 255, 0.98);
+  --bg-card-mobile: rgba(255, 255, 255, 0.97);
   --primary: #0284c7;
   --secondary: #7c3aed;
   --accent: #0d9488;
@@ -43,6 +46,7 @@
   --border-highlight: rgba(2, 132, 199, 0.5);
   --glow-color: rgba(2, 132, 199, 0.12);
   --header-bg: rgba(248, 250, 252, 0.92);
+  --header-bg-mobile: rgba(248, 250, 252, 0.98);
   --grid-line: rgba(2, 132, 199, 0.05);
   --shadow-card: 0 8px 24px 0 rgba(15, 23, 42, 0.06);
   --glow-1: rgba(2, 132, 199, 0.12);
@@ -1217,16 +1221,27 @@ footer .copyright {
     display: none !important;
   }
 
+  /* Completely disable expensive continuous GPU blur filters on mobile */
   .ambient-glow {
-    width: 250px;
-    height: 250px;
-    filter: blur(40px);
-    animation-duration: 20s;
+    width: 220px;
+    height: 220px;
+    filter: none !important;
+    animation: none !important;
+    opacity: 0.35;
   }
 
+  /* Replace heavy GPU backdrop-filter blur with fast semi-solid mobile card background */
   .glass {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: var(--bg-card-mobile) !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22) !important;
+  }
+
+  header.scrolled {
+    background: var(--header-bg-mobile) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
   /* Disable hover transform shifts while scrolling on mobile for a calm & steady view */
@@ -1236,6 +1251,7 @@ footer .copyright {
   .exp-card:hover,
   .contact-card:hover i {
     transform: none !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22) !important;
   }
 
   .mobile-toggle {
@@ -1248,9 +1264,9 @@ footer .copyright {
     right: -100%;
     width: 260px;
     height: calc(100vh - 70px);
-    background: var(--header-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: var(--header-bg-mobile) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
     border-left: 1px solid var(--border-color);
     flex-direction: column;
     padding: 2.5rem 2rem;

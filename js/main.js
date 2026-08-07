@@ -628,6 +628,25 @@ function initParticleCanvas() {
     canvasObserver.observe(heroSection);
   }
 
+  // On mobile touch devices, pause canvas animation frames during active touch scrolling
+  if (isMobile) {
+    let touchScrollTimer = null;
+    window.addEventListener("touchmove", () => {
+      if (isCanvasActive) {
+        isCanvasActive = false;
+        if (animFrameId) cancelAnimationFrame(animFrameId);
+      }
+      clearTimeout(touchScrollTimer);
+      touchScrollTimer = setTimeout(() => {
+        const rect = heroSection?.getBoundingClientRect();
+        if (rect && rect.bottom > 0 && rect.top < window.innerHeight) {
+          isCanvasActive = true;
+          animate();
+        }
+      }, 180);
+    }, { passive: true });
+  }
+
   // Pause canvas when tab is hidden to save mobile battery and memory
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
