@@ -542,38 +542,71 @@ function initParticleCanvas() {
   animate();
 }
 
-/* Light / Dark Mode Theme Switcher Controller */
+/* Light / Dark Mode Theme Switcher Controller & Selection Modal */
 function initThemeToggle() {
   const toggleBtn = document.getElementById("theme-toggle");
   const themeIcon = document.getElementById("theme-icon");
   const themeLabel = document.getElementById("theme-label");
+  const modalOverlay = document.getElementById("themeModalOverlay");
+  const chooseDarkBtn = document.getElementById("chooseDarkBtn");
+  const chooseLightBtn = document.getElementById("chooseLightBtn");
 
-  if (!toggleBtn) return;
+  // Restore saved theme or open popup modal on initial visit
+  const savedTheme = localStorage.getItem("theme");
 
-  // Restore saved theme or default to dark
-  const savedTheme = localStorage.getItem("theme") || "dark";
-  document.documentElement.setAttribute("data-theme", savedTheme);
-  updateToggleUI(savedTheme);
+  if (savedTheme) {
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    updateToggleUI(savedTheme);
+  } else {
+    // Default to dark mode initially
+    document.documentElement.setAttribute("data-theme", "dark");
+    updateToggleUI("dark");
 
-  toggleBtn.addEventListener("click", () => {
-    const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
-    const nextTheme = currentTheme === "dark" ? "light" : "dark";
+    // Open popup after brief delay for smooth entrance
+    setTimeout(() => {
+      if (modalOverlay) modalOverlay.classList.add("active");
+    }, 450);
+  }
 
-    document.documentElement.setAttribute("data-theme", nextTheme);
-    localStorage.setItem("theme", nextTheme);
-    updateToggleUI(nextTheme);
-  });
+  // Modal Selection Buttons
+  if (chooseDarkBtn) {
+    chooseDarkBtn.addEventListener("click", () => {
+      selectTheme("dark");
+    });
+  }
+
+  if (chooseLightBtn) {
+    chooseLightBtn.addEventListener("click", () => {
+      selectTheme("light");
+    });
+  }
+
+  function selectTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+    updateToggleUI(theme);
+    if (modalOverlay) modalOverlay.classList.remove("active");
+  }
+
+  // Header Toggle Button
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
+      const nextTheme = currentTheme === "dark" ? "light" : "dark";
+      selectTheme(nextTheme);
+    });
+  }
 
   function updateToggleUI(theme) {
     if (!themeIcon || !themeLabel) return;
     if (theme === "light") {
       themeIcon.className = "fas fa-moon";
       themeLabel.textContent = "Dark";
-      toggleBtn.setAttribute("title", "Switch to Dark Mode");
+      if (toggleBtn) toggleBtn.setAttribute("title", "Switch to Dark Mode");
     } else {
       themeIcon.className = "fas fa-sun";
       themeLabel.textContent = "Light";
-      toggleBtn.setAttribute("title", "Switch to Light Mode");
+      if (toggleBtn) toggleBtn.setAttribute("title", "Switch to Light Mode");
     }
   }
 }

@@ -25,11 +25,59 @@
   <div class="ambient-glow ambient-glow-2"></div>
   <div class="ambient-glow ambient-glow-3"></div>
 
+  <!-- Initial Theme Selection Modal Popup -->
+  <div class="theme-modal-overlay" id="themeModalOverlay">
+    <div class="theme-modal-card glass">
+      <div class="theme-modal-header">
+        <i class="fas fa-palette modal-icon"></i>
+        <h3>Welcome to Jecin's Portfolio</h3>
+        <p>Select your preferred visual theme to customize your experience:</p>
+      </div>
+      <div class="theme-options-grid">
+        <button class="theme-option-btn dark-option" id="chooseDarkBtn">
+          <div class="theme-option-preview dark-preview">
+            <i class="fas fa-moon"></i>
+          </div>
+          <div class="theme-option-info">
+            <span class="option-title">Aurora Dark Mode</span>
+            <span class="option-desc">Vivid bioluminescent zen & deep midnight theme</span>
+          </div>
+        </button>
+        <button class="theme-option-btn light-option" id="chooseLightBtn">
+          <div class="theme-option-preview light-preview">
+            <i class="fas fa-sun"></i>
+          </div>
+          <div class="theme-option-info">
+            <span class="option-title">Nordic Light Mode</span>
+            <span class="option-desc">Crisp slate ice & high-contrast tech theme</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Header Navigation -->
   <header id="header">
     <div class="container">
       <nav>
-        <a href="#hero" class="logo">Jecin<span>.wise</span></a>
+        <div class="nav-social-icons">
+          <a href="https://wa.me/+917305313682" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"
+            title="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="https://instagram.com/_zion.sh_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+            title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://x.com/JecinWise3000" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"
+            title="X (Twitter)">
+            <i class="fab fa-x"></i>
+          </a>
+          <a href="https://t.me/Rangerover6164" target="_blank" rel="noopener noreferrer" aria-label="Telegram"
+            title="Telegram">
+            <i class="fab fa-telegram"></i>
+          </a>
+        </div>
         <ul class="nav-links" id="nav-links">
           <li><a href="#about">About</a></li>
           <li><a href="#focus">Focus</a></li>
@@ -350,8 +398,8 @@
               <span class="stat-label">Followers</span>
             </div>
             <div class="stat-indicator">
-              <span class="stat-value">10+</span>
-              <span class="stat-label">Endorsements</span>
+              <span class="stat-value">3+</span>
+              <span class="stat-label">Projects</span>
             </div>
             <div class="stat-indicator">
               <span class="stat-value">25+</span>
@@ -409,8 +457,7 @@
           <h4>LinkedIn</h4>
           <p>jecin-wise</p>
         </a>
-        <a href="https://wa.me/+917305313682" target="_blank" rel="noopener noreferrer"
-          class="contact-card glass">
+        <a href="https://wa.me/+917305313682" target="_blank" rel="noopener noreferrer" class="contact-card glass">
           <i class="fab fa-whatsapp"></i>
           <h4>WhatsApp</h4>
           <p>+91 73053 13682</p>
