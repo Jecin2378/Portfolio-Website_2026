@@ -206,16 +206,15 @@ section {
   border-radius: 2px;
 }
 
-/* Scroll Reveal Animations */
+/* Clean & Steady Scroll Layout (No jumping or translateY movement while scrolling) */
 .reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.8s ease-out;
+  opacity: 1;
+  transform: none;
 }
 
 .reveal.active {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 /* ==========================================================================
@@ -1219,6 +1218,15 @@ footer .copyright {
   .glass {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Disable hover transform shifts while scrolling on mobile for a calm & steady view */
+  .glass:hover,
+  .stat-indicator:hover,
+  .repo-item-link:hover .repo-item,
+  .exp-card:hover,
+  .contact-card:hover i {
+    transform: none !important;
   }
 
   .mobile-toggle {
