@@ -1,18 +1,15 @@
 /* ==========================================================================
-   MAIN JAVASCRIPT CONTROLLER - PERFORMANCE & ANIMATION ENGINE
+   MAIN JAVASCRIPT CONTROLLER - FAST & LIGHTWEIGHT PERFORMANCE
    ========================================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 0. Preloader Initialization
-  initPreloader();
-
   // 1. Typing Effect Logic
   initTypingEffect();
 
   // 2. Focus Accordion Toggle
   initAccordion();
 
-  // 3. Low-Overhead IntersectionObserver Scroll Animations & ScrollSpy
+  // 3. Low-Overhead ScrollSpy & Navbar Controller
   initScrollAnimations();
 
   // 4. Mobile Menu Drawer Toggle
@@ -21,35 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // 5. Back to Top Button
   initBackToTop();
 
-  // 6. GitHub Showcase API Integration with Skeleton Screens
+  // 6. GitHub Showcase API Integration
   initGitHubShowcase();
 
-  // 7. GPU-Optimized Neural Particle Canvas Engine
-  initParticleCanvas();
-
-  // 8. Light / Dark Dual Theme Controller
+  // 7. Light / Dark Dual Theme Controller
   initThemeToggle();
 });
-
-/* Fast Instant Page Preloader Controller */
-function initPreloader() {
-  const preloader = document.getElementById("page-preloader");
-  if (!preloader) return;
-
-  const dismiss = () => {
-    preloader.classList.add("fade-out");
-    setTimeout(() => {
-      preloader.remove();
-    }, 250);
-  };
-
-  if (document.readyState === "complete") {
-    dismiss();
-  } else {
-    window.addEventListener("load", dismiss, { once: true });
-    setTimeout(dismiss, 800);
-  }
-}
 
 /* Typing Animation Engine */
 function initTypingEffect() {
