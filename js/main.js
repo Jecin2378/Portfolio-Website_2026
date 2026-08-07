@@ -268,7 +268,8 @@ function initGitHubShowcase() {
         profile: {
           public_repos: profileData.public_repos,
           followers: profileData.followers,
-          public_gists: profileData.public_gists
+          public_gists: profileData.public_gists,
+          avatar_url: profileData.avatar_url
         },
         repos: processedRepos
       };
@@ -285,6 +286,10 @@ function initGitHubShowcase() {
 
   // Render all cards inside the Showcase section
   function renderShowcase(profile, repos) {
+    if (profile && profile.avatar_url) {
+      const ghAvatar = document.getElementById("github-avatar-img");
+      if (ghAvatar) ghAvatar.src = profile.avatar_url;
+    }
     renderStats(profile, repos);
     renderLanguages(repos);
     renderRepos(repos);
