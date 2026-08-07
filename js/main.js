@@ -20,6 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 6. GitHub Showcase API Integration
   initGitHubShowcase();
+
+  // 7. Catchy Interactive Particle Canvas Engine
+  initParticleCanvas();
+
+  // 8. Light / Dark Dual Theme Controller
+  initThemeToggle();
 });
 
 /* Typing Animation Engine */
@@ -418,5 +424,156 @@ function initGitHubShowcase() {
       `;
       reposContainer.appendChild(itemLink);
     });
+  }
+}
+
+/* Interactive Neural Constellation Particle Canvas */
+function initParticleCanvas() {
+  const canvas = document.getElementById("particle-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+
+  let width = (canvas.width = window.innerWidth);
+  let height = (canvas.height = window.innerHeight);
+
+  const particles = [];
+  const particleCount = Math.min(Math.floor(width / 22), 65);
+  let mouse = { x: null, y: null, radius: 140 };
+
+  window.addEventListener("resize", () => {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+  });
+
+  window.addEventListener("mousemove", (e) => {
+    mouse.x = e.x;
+    mouse.y = e.y;
+  });
+
+  window.addEventListener("mouseleave", () => {
+    mouse.x = null;
+    mouse.y = null;
+  });
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * width;
+      this.y = Math.random() * height;
+      this.vx = (Math.random() - 0.5) * 0.8;
+      this.vy = (Math.random() - 0.5) * 0.8;
+      this.radius = Math.random() * 2 + 1;
+    }
+
+    get color() {
+      const isLight = document.documentElement.getAttribute("data-theme") === "light";
+      return isLight
+        ? (Math.random() > 0.4 ? "#0284c7" : "#7c3aed")
+        : (Math.random() > 0.4 ? "#00f5d4" : "#9d4edd");
+    }
+
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (this.x < 0 || this.x > width) this.vx *= -1;
+      if (this.y < 0 || this.y > height) this.vy *= -1;
+
+      // Mouse interaction
+      if (mouse.x != null && mouse.y != null) {
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < mouse.radius) {
+          const force = (mouse.radius - dist) / mouse.radius;
+          this.x -= (dx / dist) * force * 1.5;
+          this.y -= (dy / dist) * force * 1.5;
+        }
+      }
+    }
+
+    draw() {
+      const c = this.color;
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = c;
+      ctx.shadowBlur = 6;
+      ctx.shadowColor = c;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+  }
+
+  for (let i = 0; i < particleCount; i++) {
+    particles.push(new Particle());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, width, height);
+
+    const isLight = document.documentElement.getAttribute("data-theme") === "light";
+    const lineAlphaBase = isLight ? 0.14 : 0.18;
+
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].update();
+      particles[i].draw();
+
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          const alpha = lineAlphaBase * (1 - dist / 120);
+          ctx.strokeStyle = isLight
+            ? `rgba(2, 132, 199, ${alpha})`
+            : `rgba(0, 245, 212, ${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+}
+
+/* Light / Dark Mode Theme Switcher Controller */
+function initThemeToggle() {
+  const toggleBtn = document.getElementById("theme-toggle");
+  const themeIcon = document.getElementById("theme-icon");
+  const themeLabel = document.getElementById("theme-label");
+
+  if (!toggleBtn) return;
+
+  // Restore saved theme or default to dark
+  const savedTheme = localStorage.getItem("theme") || "dark";
+  document.documentElement.setAttribute("data-theme", savedTheme);
+  updateToggleUI(savedTheme);
+
+  toggleBtn.addEventListener("click", () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme") || "dark";
+    const nextTheme = currentTheme === "dark" ? "light" : "dark";
+
+    document.documentElement.setAttribute("data-theme", nextTheme);
+    localStorage.setItem("theme", nextTheme);
+    updateToggleUI(nextTheme);
+  });
+
+  function updateToggleUI(theme) {
+    if (!themeIcon || !themeLabel) return;
+    if (theme === "light") {
+      themeIcon.className = "fas fa-moon";
+      themeLabel.textContent = "Dark";
+      toggleBtn.setAttribute("title", "Switch to Dark Mode");
+    } else {
+      themeIcon.className = "fas fa-sun";
+      themeLabel.textContent = "Light";
+      toggleBtn.setAttribute("title", "Switch to Light Mode");
+    }
   }
 }
