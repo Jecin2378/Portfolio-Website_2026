@@ -1,15 +1,18 @@
 /* ==========================================================================
-   MAIN JAVASCRIPT CONTROLLER
+   MAIN JAVASCRIPT CONTROLLER - PERFORMANCE & ANIMATION ENGINE
    ========================================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
+  // 0. Preloader Initialization
+  initPreloader();
+
   // 1. Typing Effect Logic
   initTypingEffect();
 
   // 2. Focus Accordion Toggle
   initAccordion();
 
-  // 3. Scroll Reveal & Navbar ScrollSpy
+  // 3. Low-Overhead IntersectionObserver Scroll Animations & ScrollSpy
   initScrollAnimations();
 
   // 4. Mobile Menu Drawer Toggle
@@ -18,15 +21,59 @@ document.addEventListener("DOMContentLoaded", () => {
   // 5. Back to Top Button
   initBackToTop();
 
-  // 6. GitHub Showcase API Integration
+  // 6. GitHub Showcase API Integration with Skeleton Screens
   initGitHubShowcase();
 
-  // 7. Catchy Interactive Particle Canvas Engine
+  // 7. GPU-Optimized Neural Particle Canvas Engine
   initParticleCanvas();
 
   // 8. Light / Dark Dual Theme Controller
   initThemeToggle();
 });
+
+/* Modern Futuristic Page Preloader Controller */
+function initPreloader() {
+  const preloader = document.getElementById("page-preloader");
+  const progressBar = document.getElementById("preloader-progress");
+  const statusText = document.getElementById("preloader-status");
+  if (!preloader) return;
+
+  let progress = 0;
+  const statuses = [
+    "Initializing AI Infrastructure Engine...",
+    "Optimizing Render Pipeline & GPU...",
+    "Loading Neural Data Streams...",
+    "Systems Online & Ready"
+  ];
+
+  const interval = setInterval(() => {
+    progress += Math.floor(Math.random() * 20) + 15;
+    if (progress > 100) progress = 100;
+
+    if (progressBar) progressBar.style.width = progress + "%";
+    
+    if (statusText) {
+      if (progress < 30) statusText.textContent = statuses[0];
+      else if (progress < 65) statusText.textContent = statuses[1];
+      else if (progress < 95) statusText.textContent = statuses[2];
+      else statusText.textContent = statuses[3];
+    }
+
+    if (progress >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        preloader.classList.add("fade-out");
+        setTimeout(() => {
+          preloader.remove();
+        }, 550);
+      }, 300);
+    }
+  }, 80);
+
+  window.addEventListener("load", () => {
+    progress = 100;
+  });
+}
 
 /* Typing Animation Engine */
 function initTypingEffect() {
@@ -91,64 +138,62 @@ function initAccordion() {
   });
 }
 
-/* Scroll Animations & ScrollSpy Navigation Engine */
+/* IntersectionObserver Scroll Animations & ScrollSpy Engine (Zero Layout Reflows) */
 function initScrollAnimations() {
   const reveals = document.querySelectorAll(".reveal");
   const header = document.getElementById("header");
   const navLinks = document.querySelectorAll(".nav-links a");
   const sections = document.querySelectorAll("section[id]");
 
+  // 1. Throttled Header Blur Controller
   let isTicking = false;
-
-  function handleScroll() {
-    const scrollY = window.scrollY;
-
-    // Header Blur Effect
-    if (scrollY > 50) {
-      header?.classList.add("scrolled");
-    } else {
-      header?.classList.remove("scrolled");
-    }
-
-    // Scroll Reveal trigger
-    const windowHeight = window.innerHeight;
-    reveals.forEach(reveal => {
-      const revealTop = reveal.getBoundingClientRect().top;
-      if (revealTop < windowHeight - 60) {
-        reveal.classList.add("active");
-      }
-    });
-
-    // ScrollSpy active link highlighting
-    let currentSection = "";
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - 140;
-      const sectionHeight = section.offsetHeight;
-      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-        currentSection = section.getAttribute("id");
-      }
-    });
-
-    navLinks.forEach(link => {
-      link.classList.remove("active");
-      if (currentSection && link.getAttribute("href") === `#${currentSection}`) {
-        link.classList.add("active");
-      }
-    });
-  }
-
-  function onScroll() {
+  window.addEventListener("scroll", () => {
     if (!isTicking) {
       window.requestAnimationFrame(() => {
-        handleScroll();
+        if (window.scrollY > 50) {
+          header?.classList.add("scrolled");
+        } else {
+          header?.classList.remove("scrolled");
+        }
         isTicking = false;
       });
       isTicking = true;
     }
-  }
+  }, { passive: true });
 
-  window.addEventListener("scroll", onScroll, { passive: true });
-  handleScroll(); // Trigger initial check
+  // 2. High-Performance IntersectionObserver for Section Reveal
+  if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { root: null, threshold: 0.12 });
+
+    reveals.forEach(reveal => revealObserver.observe(reveal));
+
+    // 3. High-Performance IntersectionObserver for ScrollSpy
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const currentSection = entry.target.getAttribute("id");
+          navLinks.forEach(link => {
+            link.classList.remove("active");
+            if (currentSection && link.getAttribute("href") === `#${currentSection}`) {
+              link.classList.add("active");
+            }
+          });
+        }
+      });
+    }, { root: null, threshold: 0.25 });
+
+    sections.forEach(section => sectionObserver.observe(section));
+  } else {
+    // Fallback for older legacy browsers
+    reveals.forEach(reveal => reveal.classList.add("active"));
+  }
 }
 
 /* Mobile Navigation Drawer Engine */
@@ -528,9 +573,11 @@ function initParticleCanvas() {
   }
 
   let animFrameId = null;
+  let isCanvasActive = true;
   const maxLineDist = isMobile ? 85 : 110;
 
   function animate() {
+    if (!isCanvasActive) return;
     ctx.clearRect(0, 0, width, height);
 
     const isLight = document.documentElement.getAttribute("data-theme") === "light";
@@ -562,11 +609,32 @@ function initParticleCanvas() {
     animFrameId = requestAnimationFrame(animate);
   }
 
+  // IntersectionObserver to pause particle animation when hero is offscreen
+  const heroSection = document.getElementById("hero");
+  if ("IntersectionObserver" in window && heroSection) {
+    const canvasObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (!isCanvasActive) {
+            isCanvasActive = true;
+            animate();
+          }
+        } else {
+          isCanvasActive = false;
+          if (animFrameId) cancelAnimationFrame(animFrameId);
+        }
+      });
+    }, { threshold: 0.05 });
+    canvasObserver.observe(heroSection);
+  }
+
   // Pause canvas when tab is hidden to save mobile battery and memory
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {
+      isCanvasActive = false;
       if (animFrameId) cancelAnimationFrame(animFrameId);
     } else {
+      isCanvasActive = true;
       animate();
     }
   });

@@ -15,6 +15,9 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="preconnect" href="https://ghchart.rshah.org" crossorigin>
   <link rel="preconnect" href="https://api.github.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://ghchart.rshah.org">
+  <link rel="dns-prefetch" href="https://api.github.com">
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -24,6 +27,22 @@
 </head>
 
 <body>
+
+  <!-- Modern Futuristic Page Preloader Screen -->
+  <div id="page-preloader" class="page-preloader">
+    <div class="preloader-content">
+      <div class="preloader-logo-ring">
+        <div class="preloader-spinner"></div>
+        <i class="fas fa-brain preloader-icon"></i>
+      </div>
+      <h2 class="preloader-title">JECIN WISE</h2>
+      <p class="preloader-subtitle">AI Infrastructure Engineer • Forex Enthusiast</p>
+      <div class="preloader-status" id="preloader-status">Initializing AI Engine & Loading Systems...</div>
+      <div class="preloader-bar">
+        <div class="preloader-progress" id="preloader-progress"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- Tech Grid & Catchy Background System -->
   <div class="bg-grid-overlay"></div>
@@ -129,7 +148,7 @@
         </div>
         <div class="hero-image-wrapper">
           <div class="profile-frame glass">
-            <img src="Profile.png" alt="Jecin Professional Portrait">
+            <img src="Profile.png" alt="Jecin Professional Portrait" fetchpriority="high" decoding="async" width="300" height="300">
           </div>
         </div>
       </div>
@@ -382,7 +401,7 @@
           <h3><i class="fab fa-linkedin"></i> Profile Snapshot</h3>
           <div class="linkedin-profile-box">
             <div class="linkedin-avatar">
-              <img src="linkedinprofile.png" alt="Jecin Wise"
+              <img src="linkedinprofile.png" alt="Jecin Wise" loading="lazy" decoding="async" width="120" height="120"
                 onerror="this.src='https://via.placeholder.com/120/0d1628/00f0ff?text=J'">
             </div>
             <h4>Jecin Wise</h4>
@@ -491,7 +510,6 @@
 
   <!-- External JavaScript Files -->
   <script src="js/main.js"></script>
-  <script src="js/particles.js"></script>
 </body>
 
 </html>
