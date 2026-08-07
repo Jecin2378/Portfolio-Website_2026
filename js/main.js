@@ -468,7 +468,7 @@ function initParticleCanvas() {
       const isLight = document.documentElement.getAttribute("data-theme") === "light";
       return isLight
         ? (Math.random() > 0.4 ? "#0284c7" : "#7c3aed")
-        : (Math.random() > 0.4 ? "#00f5d4" : "#9d4edd");
+        : (Math.random() > 0.4 ? "#00f5d4" : "#131114ff");
     }
 
     update() {
