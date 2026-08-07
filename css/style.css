@@ -106,67 +106,42 @@ body {
 }
 
 #particle-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: -2;
-  pointer-events: none;
+  display: none !important;
 }
 
 .ambient-glow {
   position: fixed;
-  width: 550px;
-  height: 550px;
+  width: 450px;
+  height: 450px;
   border-radius: 50%;
   z-index: -4;
-  filter: blur(100px);
   pointer-events: none;
-  animation: float 14s infinite alternate ease-in-out;
+  opacity: 0.5;
 }
 
 .ambient-glow-1 {
-  top: 15%;
+  top: 10%;
   left: 5%;
-  background: radial-gradient(circle, var(--glow-1) 0%, rgba(0, 0, 0, 0) 70%);
+  background: radial-gradient(circle, var(--glow-1) 0%, transparent 70%);
 }
 
 .ambient-glow-2 {
-  top: 55%;
+  top: 50%;
   right: 5%;
-  background: radial-gradient(circle, var(--glow-2) 0%, rgba(0, 0, 0, 0) 70%);
-  animation-delay: -5s;
+  background: radial-gradient(circle, var(--glow-2) 0%, transparent 70%);
 }
 
 .ambient-glow-3 {
-  bottom: 10%;
-  left: 35%;
-  width: 450px;
-  height: 450px;
-  background: radial-gradient(circle, var(--glow-3) 0%, rgba(0, 0, 0, 0) 70%);
-  animation-delay: -9s;
+  bottom: 5%;
+  left: 30%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--glow-3) 0%, transparent 70%);
 }
 
-@keyframes float {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  50% {
-    transform: translate(40px, 30px) scale(1.08);
-  }
-
-  100% {
-    transform: translate(-30px, 50px) scale(1.15);
-  }
-}
-
-/* Glassmorphism Class */
+/* Crisp & Lightweight Card Styling (Simple Motion) */
 .glass {
   background: var(--bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-color);
   border-radius: 16px;
   box-shadow: var(--shadow-card);
@@ -175,7 +150,7 @@ body {
 
 .glass:hover {
   border-color: var(--border-highlight);
-  box-shadow: 0 12px 40px 0 var(--glow-color);
+  box-shadow: 0 6px 20px var(--glow-color);
 }
 
 /* Utility Classes */

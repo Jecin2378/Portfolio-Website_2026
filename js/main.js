@@ -31,48 +31,24 @@ document.addEventListener("DOMContentLoaded", () => {
   initThemeToggle();
 });
 
-/* Modern Futuristic Page Preloader Controller */
+/* Fast Instant Page Preloader Controller */
 function initPreloader() {
   const preloader = document.getElementById("page-preloader");
-  const progressBar = document.getElementById("preloader-progress");
-  const statusText = document.getElementById("preloader-status");
   if (!preloader) return;
 
-  let progress = 0;
-  const statuses = [
-    "Initializing AI Infrastructure Engine...",
-    "Optimizing Render Pipeline & GPU...",
-    "Loading Neural Data Streams...",
-    "Systems Online & Ready"
-  ];
+  const dismiss = () => {
+    preloader.classList.add("fade-out");
+    setTimeout(() => {
+      preloader.remove();
+    }, 250);
+  };
 
-  const interval = setInterval(() => {
-    progress += Math.floor(Math.random() * 20) + 15;
-    if (progress > 100) progress = 100;
-
-    if (progressBar) progressBar.style.width = progress + "%";
-    
-    if (statusText) {
-      if (progress < 30) statusText.textContent = statuses[0];
-      else if (progress < 65) statusText.textContent = statuses[1];
-      else if (progress < 95) statusText.textContent = statuses[2];
-      else statusText.textContent = statuses[3];
-    }
-
-    if (progress >= 100) {
-      clearInterval(interval);
-      setTimeout(() => {
-        preloader.classList.add("fade-out");
-        setTimeout(() => {
-          preloader.remove();
-        }, 550);
-      }, 300);
-    }
-  }, 80);
-
-  window.addEventListener("load", () => {
-    progress = 100;
-  });
+  if (document.readyState === "complete") {
+    dismiss();
+  } else {
+    window.addEventListener("load", dismiss, { once: true });
+    setTimeout(dismiss, 800);
+  }
 }
 
 /* Typing Animation Engine */
@@ -484,181 +460,11 @@ function initGitHubShowcase() {
   }
 }
 
-/* Mobile-Optimized Interactive Neural Constellation Particle Canvas */
+/* Static Background Setup (Canvas JS Animation Disabled for Zero Latency) */
 function initParticleCanvas() {
   const canvas = document.getElementById("particle-canvas");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-
-  let width = (canvas.width = window.innerWidth);
-  let height = (canvas.height = window.innerHeight);
-  let isMobile = width < 768;
-
-  const particles = [];
-  // Max 18 particles on mobile for 60fps performance, max 50 on desktop
-  const particleCount = isMobile ? 18 : Math.min(Math.floor(width / 26), 50);
-  let mouse = { x: null, y: null, radius: isMobile ? 0 : 130 };
-
-  window.addEventListener("resize", () => {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-    isMobile = width < 768;
-  }, { passive: true });
-
-  if (!isMobile) {
-    window.addEventListener("mousemove", (e) => {
-      mouse.x = e.x;
-      mouse.y = e.y;
-    }, { passive: true });
-
-    window.addEventListener("mouseleave", () => {
-      mouse.x = null;
-      mouse.y = null;
-    }, { passive: true });
-  }
-
-  class Particle {
-    constructor() {
-      this.x = Math.random() * width;
-      this.y = Math.random() * height;
-      this.vx = (Math.random() - 0.5) * (isMobile ? 0.4 : 0.7);
-      this.vy = (Math.random() - 0.5) * (isMobile ? 0.4 : 0.7);
-      this.radius = Math.random() * 1.8 + 1;
-    }
-
-    get color() {
-      const isLight = document.documentElement.getAttribute("data-theme") === "light";
-      return isLight
-        ? (Math.random() > 0.4 ? "#0284c7" : "#7c3aed")
-        : (Math.random() > 0.4 ? "#00f5d4" : "#9d4edd");
-    }
-
-    update() {
-      this.x += this.vx;
-      this.y += this.vy;
-
-      if (this.x < 0 || this.x > width) this.vx *= -1;
-      if (this.y < 0 || this.y > height) this.vy *= -1;
-
-      // Mouse interaction on desktop
-      if (!isMobile && mouse.x != null && mouse.y != null) {
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < mouse.radius) {
-          const force = (mouse.radius - dist) / mouse.radius;
-          this.x -= (dx / dist) * force * 1.2;
-          this.y -= (dy / dist) * force * 1.2;
-        }
-      }
-    }
-
-    draw() {
-      const c = this.color;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fillStyle = c;
-      // Disable shadowBlur on mobile for massive GPU performance gain
-      if (!isMobile) {
-        ctx.shadowBlur = 4;
-        ctx.shadowColor = c;
-      }
-      ctx.fill();
-      if (!isMobile) ctx.shadowBlur = 0;
-    }
-  }
-
-  for (let i = 0; i < particleCount; i++) {
-    particles.push(new Particle());
-  }
-
-  let animFrameId = null;
-  let isCanvasActive = true;
-  const maxLineDist = isMobile ? 85 : 110;
-
-  function animate() {
-    if (!isCanvasActive) return;
-    ctx.clearRect(0, 0, width, height);
-
-    const isLight = document.documentElement.getAttribute("data-theme") === "light";
-    const lineAlphaBase = isLight ? 0.12 : 0.16;
-
-    for (let i = 0; i < particles.length; i++) {
-      particles[i].update();
-      particles[i].draw();
-
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < maxLineDist) {
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          const alpha = lineAlphaBase * (1 - dist / maxLineDist);
-          ctx.strokeStyle = isLight
-            ? `rgba(2, 132, 199, ${alpha})`
-            : `rgba(0, 245, 212, ${alpha})`;
-          ctx.lineWidth = 0.7;
-          ctx.stroke();
-        }
-      }
-    }
-
-    animFrameId = requestAnimationFrame(animate);
-  }
-
-  // IntersectionObserver to pause particle animation when hero is offscreen
-  const heroSection = document.getElementById("hero");
-  if ("IntersectionObserver" in window && heroSection) {
-    const canvasObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          if (!isCanvasActive) {
-            isCanvasActive = true;
-            animate();
-          }
-        } else {
-          isCanvasActive = false;
-          if (animFrameId) cancelAnimationFrame(animFrameId);
-        }
-      });
-    }, { threshold: 0.05 });
-    canvasObserver.observe(heroSection);
-  }
-
-  // On mobile touch devices, pause canvas animation frames during active touch scrolling
-  if (isMobile) {
-    let touchScrollTimer = null;
-    window.addEventListener("touchmove", () => {
-      if (isCanvasActive) {
-        isCanvasActive = false;
-        if (animFrameId) cancelAnimationFrame(animFrameId);
-      }
-      clearTimeout(touchScrollTimer);
-      touchScrollTimer = setTimeout(() => {
-        const rect = heroSection?.getBoundingClientRect();
-        if (rect && rect.bottom > 0 && rect.top < window.innerHeight) {
-          isCanvasActive = true;
-          animate();
-        }
-      }, 180);
-    }, { passive: true });
-  }
-
-  // Pause canvas when tab is hidden to save mobile battery and memory
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      isCanvasActive = false;
-      if (animFrameId) cancelAnimationFrame(animFrameId);
-    } else {
-      isCanvasActive = true;
-      animate();
-    }
-  });
-
-  animate();
+  if (canvas) canvas.style.display = "none";
+  return;
 }
 
 /* Light / Dark Mode Theme Switcher Controller & Selection Modal */
